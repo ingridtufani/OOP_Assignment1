@@ -140,63 +140,117 @@ namespace ExpressionCalculator
             throw new Exception("Unexpected token in the expression");
         }
     }
-     public class Calculator
-{
-    public void Start()
+    public class Calculator
     {
-        while (true)
+        public void Start()
         {
-            Console.WriteLine("Enter a mathematical expression (or type 'exit' to quit):");
-            string input = Console.ReadLine();
-
-            // Check if the input is a command (like 'exit')
-            if (input.Trim().ToLower() == "exit")
+            while (true)
             {
-                ProcessCommand(input);
-                break;  // Exit the loop after processing the command
+                Console.WriteLine("Enter a mathematical expression (or type 'exit' to quit):");
+                string input = Console.ReadLine();
+
+                // Check if the input is a command (like 'exit')
+                if (input.Trim().ToLower() == "exit")
+                {
+                    ProcessCommand(input);
+                    break;  // Exit the loop after processing the command
+                }
+
+                try
+                {
+                    Parser parser = new Parser(input);
+                    List<Token> tokens = parser.ParseTokens();
+
+                    ExpressionEvaluator evaluator = new ExpressionEvaluator(tokens);
+                    double result = evaluator.Evaluate();
+
+                    Console.WriteLine("Result: " + result);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
             }
+        }
 
-            try
+        // Process user commands like 'exit'
+        private void ProcessCommand(string command)
+        {
+            if (command.Trim().ToLower() == "exit")
             {
-                Parser parser = new Parser(input);
-                List<Token> tokens = parser.ParseTokens();
-
-                ExpressionEvaluator evaluator = new ExpressionEvaluator(tokens);
-                double result = evaluator.Evaluate();
-
-                Console.WriteLine("Result: " + result);
+                Console.WriteLine("Exiting the program...");
+                Environment.Exit(0);
             }
-            catch (Exception ex)
+            else
             {
-                Console.WriteLine("Error: " + ex.Message);
+                Console.WriteLine("Unknown command: " + command);
             }
         }
     }
 
-    // Process user commands like 'exit'
-    private void ProcessCommand(string command)
+    // Main program entry point
+    class Program
     {
-        if (command.Trim().ToLower() == "exit")
+        static void Main(string[] args)
         {
-            Console.WriteLine("Exiting the program...");
-            Environment.Exit(0);
-        }
-        else
-        {
-            Console.WriteLine("Unknown command: " + command);
+            Calculator calculator = new Calculator();
+            calculator.Start();
         }
     }
-}
 
-// Main program entry point
-class Program
-{
-    static void Main(string[] args)
+    // Token for expression 
+    public List<Token> ParseTokens()
     {
-        Calculator calculator = new Calculator();
-        calculator.Start();
+        List<Token> tokens = new List<Token>();
+
+        while (index < expression.Length)
+        {
+            char current = expression[index];
+
+            // Skip whitespace
+            if (char.IsWhiteSpace(current))
+            {
+                index++;
+                continue;
+            }
+
+            // Parse numbers (including decimals)
+            if (char.IsDigit(current) || current == '.')
+            {
+                tokens.Add(ParseNumber());
+                continue;
+            }
+
+            // Parse operators (+, -, *, /)
+            if (current == '+' || current == '-' || current == '*' || current == '/')
+            {
+                // Check if '-' is a unary operator (negative number)
+                if (current == '-' && (tokens.Count == 0 || tokens[tokens.Count - 1].Type == "operator" || tokens[tokens.Count - 1].Value == "("))
+                {
+                    tokens.Add(new Token("unary", "-"));
+                }
+                else
+                {
+                    tokens.Add(new Token("operator", current.ToString()));
+                }
+
+                index++;
+                continue;
+            }
+
+            // Parse parentheses
+            if (current == '(' || current == ')')
+            {
+                tokens.Add(new Token("parenthesis", current.ToString()));
+                index++;
+                continue;
+            }
+
+            throw new Exception("Invalid character found in the expression");
+        }
+
+        return tokens;
     }
-}
 
 }
 
