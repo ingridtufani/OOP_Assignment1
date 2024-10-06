@@ -140,6 +140,63 @@ namespace ExpressionCalculator
             throw new Exception("Unexpected token in the expression");
         }
     }
+     public class Calculator
+{
+    public void Start()
+    {
+        while (true)
+        {
+            Console.WriteLine("Enter a mathematical expression (or type 'exit' to quit):");
+            string input = Console.ReadLine();
+
+            // Check if the input is a command (like 'exit')
+            if (input.Trim().ToLower() == "exit")
+            {
+                ProcessCommand(input);
+                break;  // Exit the loop after processing the command
+            }
+
+            try
+            {
+                Parser parser = new Parser(input);
+                List<Token> tokens = parser.ParseTokens();
+
+                ExpressionEvaluator evaluator = new ExpressionEvaluator(tokens);
+                double result = evaluator.Evaluate();
+
+                Console.WriteLine("Result: " + result);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+        }
+    }
+
+    // Process user commands like 'exit'
+    private void ProcessCommand(string command)
+    {
+        if (command.Trim().ToLower() == "exit")
+        {
+            Console.WriteLine("Exiting the program...");
+            Environment.Exit(0);
+        }
+        else
+        {
+            Console.WriteLine("Unknown command: " + command);
+        }
+    }
+}
+
+// Main program entry point
+class Program
+{
+    static void Main(string[] args)
+    {
+        Calculator calculator = new Calculator();
+        calculator.Start();
+    }
+}
 
 }
 
