@@ -86,5 +86,60 @@ namespace ExpressionCalculator
             return result;
         }
 
+        // Handles multiplication and division
+        private double ParseTerm()
+        {
+            double result = ParseFactor();
+
+            while (currentIndex < tokens.Count && (tokens[currentIndex].Value == "*" || tokens[currentIndex].Value == "/"))
+            {
+                string op = tokens[currentIndex].Value;
+                currentIndex++;
+                double right = ParseFactor();
+
+                if (op == "*")
+                {
+                    result *= right;
+                }
+                else
+                {
+                    result /= right;
+                }
+            }
+
+            return result;
+        }
+
+        // Handles parentheses, numbers, and unary operators
+        private double ParseFactor()
+        {
+            // Handle parentheses
+            if (tokens[currentIndex].Value == "(")
+            {
+                currentIndex++;
+                double result = ParseExpression();
+                currentIndex++;  // Skip the closing parenthesis
+                return result;
+            }
+
+            // Handle unary operators
+            if (tokens[currentIndex].Type == "unary")
+            {
+                currentIndex++;
+                return -ParseFactor();
+            }
+
+            // Handle numbers
+            if (tokens[currentIndex].Type == "number")
+            {
+                double number = double.Parse(tokens[currentIndex].Value, CultureInfo.InvariantCulture);
+                currentIndex++;
+                return number;
+            }
+
+            throw new Exception("Unexpected token in the expression");
+        }
     }
+
+}
 
