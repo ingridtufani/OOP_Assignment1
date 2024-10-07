@@ -30,6 +30,60 @@ namespace ExpressionCalculator
             this.index = 0;
         }
 
+        // Token for expression 
+        public List<Token> ParseTokens()
+        {
+            List<Token> tokens = new List<Token>();
+
+            while (index < expression.Length)
+            {
+                char current = expression[index];
+
+                // Skip whitespace
+                if (char.IsWhiteSpace(current))
+                {
+                    index++;
+                    continue;
+                }
+
+                // Parse numbers (including decimals)
+                if (char.IsDigit(current) || current == '.')
+                {
+                    tokens.Add(ParseNumber());
+                    continue;
+                }
+
+                // Parse operators (+, -, *, /)
+                if (current == '+' || current == '-' || current == '*' || current == '/')
+                {
+                    // Check if '-' is a unary operator (negative number)
+                    if (current == '-' && (tokens.Count == 0 || tokens[tokens.Count - 1].Type == "operator" || tokens[tokens.Count - 1].Value == "("))
+                    {
+                        tokens.Add(new Token("unary", "-"));
+                    }
+                    else
+                    {
+                        tokens.Add(new Token("operator", current.ToString()));
+                    }
+
+                    index++;
+                    continue;
+                }
+
+                // Parse parentheses
+                if (current == '(' || current == ')')
+                {
+                    tokens.Add(new Token("parenthesis", current.ToString()));
+                    index++;
+                    continue;
+                }
+
+                throw new Exception("Invalid character found in the expression");
+            }
+
+            return tokens;
+        }
+
         // Reads numbers from the expression
         private Token ParseNumber()
         {
@@ -197,60 +251,5 @@ namespace ExpressionCalculator
             calculator.Start();
         }
     }
-
-    // Token for expression 
-    public List<Token> ParseTokens()
-    {
-        List<Token> tokens = new List<Token>();
-
-        while (index < expression.Length)
-        {
-            char current = expression[index];
-
-            // Skip whitespace
-            if (char.IsWhiteSpace(current))
-            {
-                index++;
-                continue;
-            }
-
-            // Parse numbers (including decimals)
-            if (char.IsDigit(current) || current == '.')
-            {
-                tokens.Add(ParseNumber());
-                continue;
-            }
-
-            // Parse operators (+, -, *, /)
-            if (current == '+' || current == '-' || current == '*' || current == '/')
-            {
-                // Check if '-' is a unary operator (negative number)
-                if (current == '-' && (tokens.Count == 0 || tokens[tokens.Count - 1].Type == "operator" || tokens[tokens.Count - 1].Value == "("))
-                {
-                    tokens.Add(new Token("unary", "-"));
-                }
-                else
-                {
-                    tokens.Add(new Token("operator", current.ToString()));
-                }
-
-                index++;
-                continue;
-            }
-
-            // Parse parentheses
-            if (current == '(' || current == ')')
-            {
-                tokens.Add(new Token("parenthesis", current.ToString()));
-                index++;
-                continue;
-            }
-
-            throw new Exception("Invalid character found in the expression");
-        }
-
-        return tokens;
-    }
-
 }
 

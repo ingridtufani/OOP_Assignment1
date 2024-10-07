@@ -44,6 +44,7 @@ dist/
 __pycache__/
 
 # IDEs and text editor files
+.vs/
 .vscode/
 .idea/
 *.suo

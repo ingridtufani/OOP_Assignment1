@@ -1,0 +1,15 @@
+C:\Users\Marcos Souza\Source\Repos\OOP_Assignment1\bin\Debug\net8.0\OOP_Assignment1.exe
+C:\Users\Marcos Souza\Source\Repos\OOP_Assignment1\bin\Debug\net8.0\OOP_Assignment1.deps.json
+C:\Users\Marcos Souza\Source\Repos\OOP_Assignment1\bin\Debug\net8.0\OOP_Assignment1.runtimeconfig.json
+C:\Users\Marcos Souza\Source\Repos\OOP_Assignment1\bin\Debug\net8.0\OOP_Assignment1.dll
+C:\Users\Marcos Souza\Source\Repos\OOP_Assignment1\bin\Debug\net8.0\OOP_Assignment1.pdb
+C:\Users\Marcos Souza\Source\Repos\OOP_Assignment1\obj\Debug\net8.0\OOP_Assignment1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Marcos Souza\Source\Repos\OOP_Assignment1\obj\Debug\net8.0\OOP_Assignment1.AssemblyInfoInputs.cache
+C:\Users\Marcos Souza\Source\Repos\OOP_Assignment1\obj\Debug\net8.0\OOP_Assignment1.AssemblyInfo.cs
+C:\Users\Marcos Souza\Source\Repos\OOP_Assignment1\obj\Debug\net8.0\OOP_Assignment1.csproj.CoreCompileInputs.cache
+C:\Users\Marcos Souza\Source\Repos\OOP_Assignment1\obj\Debug\net8.0\OOP_Assignment1.sourcelink.json
+C:\Users\Marcos Souza\Source\Repos\OOP_Assignment1\obj\Debug\net8.0\OOP_Assignment1.dll
+C:\Users\Marcos Souza\Source\Repos\OOP_Assignment1\obj\Debug\net8.0\refint\OOP_Assignment1.dll
+C:\Users\Marcos Souza\Source\Repos\OOP_Assignment1\obj\Debug\net8.0\OOP_Assignment1.pdb
+C:\Users\Marcos Souza\Source\Repos\OOP_Assignment1\obj\Debug\net8.0\OOP_Assignment1.genruntimeconfig.cache
+C:\Users\Marcos Souza\Source\Repos\OOP_Assignment1\obj\Debug\net8.0\ref\OOP_Assignment1.dll
